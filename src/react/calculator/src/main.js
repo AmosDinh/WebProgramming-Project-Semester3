@@ -1,13 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './main.css';
 import React, { isValidElement } from 'react'
+import useFetch from "react-fetch-hook";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 import { useForm } from "react-hook-form";
 
 function Main() {
-
 
     function birdPost(data) {
         fetch("https://8080-simonklausludwig-base-ycdw0o9z9yb.ws-eu81.gitpod.io/api/birdpost?content=" + data.post,
@@ -25,6 +25,8 @@ function Main() {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = birdPost
+
+    const { isLoading, data } = useFetch("");
 
     return (
         <div class="container">
