@@ -1,39 +1,59 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import React, { isValidElement } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 import { useForm } from "react-hook-form";
 
 function App() {
 
+
+  function birdPost(data) {
+    fetch("https://8080-simonklausludwig-base-ycdw0o9z9yb.ws-eu81.gitpod.io/api/birdpost?content=" + data.post,
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+      })
+      .then(function (res) { window.location.reload() })
+      .catch(function (res) { console.log(res) });
+
+  }
+
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
+  const onSubmit = birdPost
 
   return (
-    <main class="form-signin w-100 m-auto">
+    <main>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <img class="mb-4" src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57" />
-          <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+      <form onSubmit={handleSubmit(onSubmit)}>
 
-          <div class="form-floating">
-            <input {...register("vorname")} type="email" class="form-control" id="floatingInput" placeholder="name@example.com" />
-            <label for="floatingInput">Email address</label>
-          </div>
-          <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" />
-            <label for="floatingPassword">Password</label>
-          </div>
+        <button id='ZurueckBtn' type="button" class="btn btn-primary"
+          onClick="location.href='/'">
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </button>
 
-          <div class="checkbox mb-3">
-            <label>
-              <input type="checkbox" value="remember-me" /> Remember me
-            </label>
-          </div>
-          <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-          <p class="mt-5 mb-3 text-muted">© 2017–2022</p>
-        </form>
-      </main>
+        <div class="form-floating">
+          <textarea
+            {...register("post", { required: true })}
+            class="form-control"
+            placeholder="Leave a comment here"
+            id="floatingTextarea2"
+            style={{ height: '300px' }}
+          ></textarea>
+          <label for="floatingTextarea2">Poste etwas</label>
+        </div>
+
+        <button id='PostBtn' class="btn btn-primary" type="submit">Posten</button>
+
+      </form>
+    </main >
   );
 }
 
 export default App;
+
+

@@ -8,31 +8,32 @@
 
 <script>
 
-    fetch("/api/employees/").then(data => {
+    fetch("/api/birdposts/").then(data => {
         data.json().then(json => {
-            json.map(employee => {
-                addElement(employee);
+            json.map(birdpost => {
+                addElement(birdpost);
             })
         })
     })
 
-    function addElement(employee) {
+    function addElement(birdpost) {
         // create a new div element
         const newDiv = document.createElement("div");
 
         // and give it some content
-        const newContent = document.createTextNode(employee.name);
+        const newContent = document.createTextNode(birdpost.username);
+        const newContent2 = document.createTextNode(birdpost.content);
 
         // add the text node to the newly created div
         newDiv.appendChild(newContent);
+        newDiv.appendChild(newContent2);
 
         // add the newly created element and its content into the DOM
         const currentDiv = document.getElementById("div1");
         document.body.insertBefore(newDiv, currentDiv);
     }
-
     document.getElementById("create").addEventListener('click', () => {
-        fetch("/api/employee/?name=" + prompt("Name eingeben"),
+        fetch("/api/birdpost/?username=" + prompt("Name eingeben")+"&content="+prompt('Content eingeben'),
             {
                 headers: {
                     'Accept': 'application/json',
