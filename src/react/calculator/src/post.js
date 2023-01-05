@@ -31,10 +31,11 @@ function Post() {
 
       <form onSubmit={handleSubmit(onSubmit)}>
 
-        <button id='ZurueckBtn' type="button" class="btn btn-primary"
-          onClick="location.href='/'">
+        <a href='/'>
+          <button id='ZurueckBtn' type="button" class="btn btn-primary">
           <FontAwesomeIcon icon={faArrowLeft} />
         </button>
+        </a>
 
         <div class="form-floating">
           <textarea
