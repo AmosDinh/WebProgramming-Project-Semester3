@@ -47,9 +47,9 @@ function Post() {
           ></textarea>
           <label for="floatingTextarea2">Poste etwas</label>
         </div>
-
+        <a href='/post'>
         <button id='PostBtn' class="btn btn-primary" type="submit">Posten</button>
-
+        </a>
       </form>
     </main >
   );

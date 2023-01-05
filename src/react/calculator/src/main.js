@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 function Main() {
 
     function birdPost(data) {
-        fetch("https://8080-simonklausludwig-base-ycdw0o9z9yb.ws-eu81.gitpod.io/api/birdpost?content=" + data.post,
+        fetch("https://8080-https://fastiki-webprogramierun-j5p9abvj07k.ws-eu81.gitpod.io//api/birdpost?content=" + data.post,
             {
                 headers: {
                     'Accept': 'application/json',
@@ -30,7 +30,7 @@ function Main() {
 
     return (
         <div class="container">
-            <
+            
             <nav class="navbar bg-body-tertiary">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="/">Feed</a>
