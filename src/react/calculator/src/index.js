@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import Main from './main';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -13,13 +14,13 @@ import {
 
 
 root.render(
-  
 
-<BrowserRouter>
-  <Routes>
-    <Route path="/" element={<App />} />
-  </Routes>
-</BrowserRouter>
+
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Main />} />
+    </Routes>
+  </BrowserRouter>
 );
 {/* <React.StrictMode>
     <App />
