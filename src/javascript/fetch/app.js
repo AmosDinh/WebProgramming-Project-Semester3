@@ -20,8 +20,11 @@ app.use(function (req, res, next) {
 //, id:uuidv4()
 
 
-let birdposts = [
-    { username: "1", content: "Simon Ludwig" }
+let birdposts = 
+[
+    { username: "1", content: "Simon Ludwig" },
+    { username: "username1", content: "Simon Ludwig" },
+    { username: "username2", content: "Simon Ludwig" }
 
 ]
 
@@ -30,28 +33,20 @@ let userFollows = {}
 let userPasswords = {
     "username1": 'password'
 }
-let currentUser = null
-
-// content
-app.post("/api/birdpost", (req, res) => {
-    birdposts.push({ username: currentUser, content: req.query.content, id: 'aaa' }); //uuidv4()
-    console.log(birdposts)
-    res.send(200);
-})
 
 // FOLLOWING
-// followuser=elonmusk
+// user, followuser=elonmusk
 app.post("/api/userfollows", (req, res) => {
-    if (Object.keys(userFollows).includes(currentUser)) {
-        userFollows[currentUser] = {}
+    if (Object.keys(userFollows).includes(req.query.user)) {
+        userFollows[req.query.user] = {}
     }
-    userFollows[currentUser][req.query.followuser] = true
+    userFollows[req.query.user][req.query.followuser] = true
     res.send(200);
 })
-// unfollowuser
+// user, unfollowuser
 app.post("/api/userunfollows", (req, res) => {
     try {
-        delete userFollows[currentUser][req.query.unfollowuser]
+        delete userFollows[req.query.user][req.query.unfollowuser]
     } catch (error) {
         res.send(404).send(error);
     }
@@ -59,9 +54,17 @@ app.post("/api/userunfollows", (req, res) => {
     res.send(200);
 })
 
-
 // POST a POST
+// user, content
+app.post("/api/birdpost", (req, res) => {
+    birdposts.push({ username: req.query.user, content: req.query.content, id: 'aaa' }); //uuidv4()
+    console.log(birdposts)
+    res.send(200);
+})
+
+
 app.get('/api/birdposts', (req, res) => res.json(birdposts));
+
 app.get('/api/birdpost/:emplId', (req, res) => {
     const matchingEmployees = birdposts.filter(a => a.username === req.params.emplId);
     if (matchingEmployees.length <= 0) {
@@ -91,8 +94,9 @@ app.get('/api/login', (req, res) => {
     } else if (userPasswords[req.query.username] != req.query.password) {
         res.send(403).send('wrong password') // wrong password
     } else {
-        currentUser = req.query.username
+        res.json({'w':'e'})
         res.send(200).send('login success') // login success
+
     }
 
 });
