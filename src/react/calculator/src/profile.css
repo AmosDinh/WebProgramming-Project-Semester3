@@ -1,0 +1,13 @@
+.card {
+    margin-top: 20px;
+}
+
+#post {
+    position: absolute;
+    bottom: 50;
+    right: 50;
+}
+
+h3 {
+    padding: 10px;
+}
