@@ -1,0 +1,11 @@
+#Cardcontainer {}
+
+.card {
+    margin-top: 20px;
+}
+
+#post {
+    position: absolute;
+    bottom: 50;
+    right: 50;
+}
