@@ -28,9 +28,10 @@ function Main() {
 
     return (
         <div class="container">
+            <
             <nav class="navbar bg-body-tertiary">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="test.html">Feed</a>
+                    <a class="navbar-brand" href="/">Feed</a>
                     <form class="d-flex" role="search">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                         <button class="btn btn-outline-success" type="submit">Search</button>
@@ -57,8 +58,11 @@ function Main() {
                     </div>
                 </div>
             </div>
+            <a href='/post'>
             <button id="post" type="button" class="btn btn-primary btn-lg"
-                onclick="location.href=''">Posten</button>
+                >Posten</button>
+
+            </a>
         </div>
     );
 }

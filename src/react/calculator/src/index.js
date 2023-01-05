@@ -19,7 +19,9 @@ root.render(
 
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Post />} />
+      <Route path="/" element={<Main />} />
+      <Route path="/post" element={<Post />} />
+      <Route path="/profile" element={<Profile />} />
     </Routes>
   </BrowserRouter>
 );
