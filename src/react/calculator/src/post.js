@@ -6,7 +6,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 import { useForm } from "react-hook-form";
 
-function App() {
+function Post() {
 
 
   function birdPost(data) {
@@ -54,6 +54,6 @@ function App() {
   );
 }
 
-export default App;
+export default Post;
 
 
