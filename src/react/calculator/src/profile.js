@@ -106,7 +106,11 @@ function Profile() {
 
 
             </div>
-        
+            <Link to={'/post/' + username}>
+                <button id="post" type="button" class="btn btn-primary btn-lg"
+                >Posten</button>
+
+            </Link>
         </div>
     );
 }

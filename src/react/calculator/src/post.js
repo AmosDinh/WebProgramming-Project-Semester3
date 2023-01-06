@@ -10,14 +10,13 @@ import {
 } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
-
-
+import { useNavigate } from "react-router-dom";
 function Post() {
 
 
   function birdPost(data) {
-    debugger;
-    fetch("http://localhost:8080/api/birdpost?user="+"test"+"&content=" + data.post+"&uuid="+uuidv4(),
+   
+    fetch("http://localhost:8080/api/birdpost?user="+username+"&content=" + data.post+"&uuid="+uuidv4(),
       {
         headers: {
           'Accept': 'application/json',
@@ -25,11 +24,11 @@ function Post() {
         },
         method: "POST",
       })
-      .then(function (res) { window.location.reload() })
+      .then(function (res) { navigate(-1) })
       .catch(function (res) { console.log(res) });
 
   }
-
+  const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = birdPost
   let { username } = useParams();
@@ -39,11 +38,11 @@ function Post() {
 
       <form onSubmit={handleSubmit(onSubmit)}>
 
-        <Link to={'/'+username}>
-          <button id='ZurueckBtn' type="button" class="btn btn-primary">
+      
+          <button id='ZurueckBtn' type="button" class="btn btn-primary" onClick={() => navigate(-1)}>
           <FontAwesomeIcon icon={faArrowLeft} />
         </button>
-        </Link>
+     
 
         <div class="form-floating">
           <textarea
@@ -55,9 +54,9 @@ function Post() {
           ></textarea>
           <label for="floatingTextarea2">Poste etwas</label>
         </div>
-        <Link to={'/post'+username}>
+      
         <button id='PostBtn' class="btn btn-primary" type="submit">Posten</button>
-        </Link>
+      
       </form>
     </main >
   );
