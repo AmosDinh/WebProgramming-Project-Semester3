@@ -1,16 +1,23 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './post.css';
+import './css/post.css';
 import React, { isValidElement } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 import { useForm } from "react-hook-form";
+import {
+  Link
+} from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
+
 
 function Post() {
 
 
   function birdPost(data) {
-    fetch("https://8080-simonklausludwig-base-ycdw0o9z9yb.ws-eu81.gitpod.io/api/birdpost?content=" + data.post,
+    debugger;
+    fetch("https://8080-fastiki-webprogramierun-9rrzlddhh7d.ws-eu81.gitpod.io/api/birdpost?user="+"test"+"&content=" + data.post+"&uuid="+uuidv4(),
       {
         headers: {
           'Accept': 'application/json',
@@ -25,17 +32,18 @@ function Post() {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = birdPost
-
+  let { username } = useParams();
   return (
-    <main>
+    <main id='PostMain'>
+      
 
       <form onSubmit={handleSubmit(onSubmit)}>
 
-        <a href='/'>
+        <Link to={'/'+username}>
           <button id='ZurueckBtn' type="button" class="btn btn-primary">
           <FontAwesomeIcon icon={faArrowLeft} />
         </button>
-        </a>
+        </Link>
 
         <div class="form-floating">
           <textarea
@@ -47,9 +55,9 @@ function Post() {
           ></textarea>
           <label for="floatingTextarea2">Poste etwas</label>
         </div>
-        <a href='/post'>
+        <Link to={'/post'+username}>
         <button id='PostBtn' class="btn btn-primary" type="submit">Posten</button>
-        </a>
+        </Link>
       </form>
     </main >
   );
