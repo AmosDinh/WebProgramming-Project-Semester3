@@ -15,7 +15,7 @@ function Signup() {
 
   function signup(data) {
     
-    fetch("https://8080-fastiki-webprogramierun-9rrzlddhh7d.ws-eu81.gitpod.io/api/signup?username="+data.user+"&password=" + data.password,
+    fetch("http://localhost:8080/api/signup?username="+data.user+"&password=" + data.password,
       {
         headers: {
           'Accept': 'application/json',

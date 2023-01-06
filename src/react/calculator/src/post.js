@@ -17,7 +17,7 @@ function Post() {
 
   function birdPost(data) {
     debugger;
-    fetch("https://8080-fastiki-webprogramierun-9rrzlddhh7d.ws-eu81.gitpod.io/api/birdpost?user="+"test"+"&content=" + data.post+"&uuid="+uuidv4(),
+    fetch("http://localhost:8080/api/birdpost?user="+"test"+"&content=" + data.post+"&uuid="+uuidv4(),
       {
         headers: {
           'Accept': 'application/json',
