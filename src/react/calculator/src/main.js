@@ -26,7 +26,7 @@ function Main() {
     }
 
     function handleSearch(data) {
-        navigate('/search/'+username+'/'+data.searchterm);
+        navigate('/search/'+username+'/'+encodeURIComponent(data.searchterm));
     }
 
     return (

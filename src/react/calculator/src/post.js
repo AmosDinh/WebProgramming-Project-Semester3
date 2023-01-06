@@ -16,7 +16,7 @@ function Post() {
 
   function birdPost(data) {
    
-    fetch("http://localhost:8080/api/birdpost?user="+username+"&content=" + data.post+"&uuid="+uuidv4(),
+    fetch("http://localhost:8080/api/birdpost?user="+username+"&content=" + encodeURIComponent(data.post)+"&uuid="+uuidv4(),
       {
         headers: {
           'Accept': 'application/json',
