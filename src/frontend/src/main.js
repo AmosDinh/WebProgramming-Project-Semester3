@@ -19,7 +19,8 @@ function Main() {
     const { register: registerSearch, handleSubmit: handleSubmitSearch, formState: { errors: errorsSearch } } = useForm();
     let { username } = useParams();
 
-    const { isLoading, data, error } = useFetch("http://localhost:8080/api/getUserFeed/" + username);
+    let { isLoading, data, error } =  useFetch("http://localhost:8080/api/getUserFeed/" + username);
+    
 
     if (isLoading) {
         return <div>Is loading!</div>

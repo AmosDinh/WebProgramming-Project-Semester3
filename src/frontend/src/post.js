@@ -50,7 +50,7 @@ function Post() {
             class="form-control"
             placeholder="Leave a comment here"
             id="floatingTextarea2"
-            style={{ height: '300px' }}
+       
           ></textarea>
           <label for="floatingTextarea2">Poste etwas</label>
         </div>

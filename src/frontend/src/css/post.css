@@ -36,3 +36,7 @@ button {
 #PostBtn, #ZurueckBtn{
     margin: 10px;
 }
+
+textarea{
+    height: 300px!important
+}
