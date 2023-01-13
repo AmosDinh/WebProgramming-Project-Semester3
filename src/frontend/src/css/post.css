@@ -36,3 +36,9 @@ button {
 #PostBtn, #ZurueckBtn{
     margin: 10px;
 }
+
+#PostMain {
+    display: block;
+    width: 98vw;
+    height: auto;
+}
