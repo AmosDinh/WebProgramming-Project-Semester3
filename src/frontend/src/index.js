@@ -38,10 +38,7 @@ root.render(
       <Route path="/post/:username" element={<Post />} />
       <Route path="/profile/:username/:profileusername" element={<Profile />} />
       <Route path="/login" element={<Signin />} />
-      <Route path="/signup/:username" element={<Signup />} />
+      <Route path="/signup/:username/:userpassword" element={<Signup />} />
     </Routes>
   </BrowserRouter>
 );
-{/* <React.StrictMode>
-    <App />
-  </React.StrictMode> */}

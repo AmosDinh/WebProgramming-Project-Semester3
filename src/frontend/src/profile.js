@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import { Link
   } from "react-router-dom";
 import useFetch from "react-fetch-hook";
-import postCard from './postcard';
+import postCard from './components/postcard';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -54,7 +54,7 @@ function Profile() {
 
     }
     const navigate = useNavigate();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm(); // follow 
     const { register:registerSearch, handleSubmit:handleSubmitSearch,formState: { errors:errorsSearch }} = useForm();
 
     let { username, profileusername } = useParams();

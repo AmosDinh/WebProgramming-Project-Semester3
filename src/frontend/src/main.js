@@ -12,13 +12,13 @@ import {
     Link
 } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import postCard from './postcard';
+import postCard from './components/postcard';
 
 function Main() {
     const navigate = useNavigate();
-    const { register:registerSearch, handleSubmit:handleSubmitSearch,formState: { errors:errorsSearch }} = useForm();
+    const { register: registerSearch, handleSubmit: handleSubmitSearch, formState: { errors: errorsSearch } } = useForm();
     let { username } = useParams();
-   
+
     const { isLoading, data, error } = useFetch("http://localhost:8080/api/getUserFeed/" + username);
 
     if (isLoading) {
@@ -26,7 +26,7 @@ function Main() {
     }
 
     function handleSearch(data) {
-        navigate('/search/'+username+'/'+encodeURIComponent(data.searchterm));
+        navigate('/search/' + username + '/' + encodeURIComponent(data.searchterm));
     }
 
     return (
@@ -37,7 +37,7 @@ function Main() {
                     <Link class="navbar-brand" to={"/" + username}><b>Feed</b></Link>
                     <Link class="navbar-brand" to={"/profile/" + username + "/" + username}>Profile</Link>
                     <form class="d-flex" role="search">
-                    <input {...registerSearch("searchterm", { required: true })}  class="form-control me-2" type="text" placeholder="Search" aria-label="Search" />
+                        <input {...registerSearch("searchterm", { required: true })} class="form-control me-2" type="text" placeholder="Search" aria-label="Search" />
                         <button class="btn btn-outline-success" onClick={handleSubmitSearch(handleSearch)}>Search</button>
                     </form>
                 </div>
@@ -46,8 +46,8 @@ function Main() {
 
 
                 <div>
-                 
-                {postCard(data,username)}
+
+                    {postCard(data, username)}
 
                 </div>
             </div>

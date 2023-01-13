@@ -126,6 +126,7 @@ function searchAllPosts(key, searchterm, allPosts){
   
 }
 function addPostsWithUniqueId(currentposts, addposts){
+    // removes duplicate posts, comparing both input lists
     let ids = []
     let r = []
     for (var i =0;i<currentposts.length;i++){
@@ -139,11 +140,14 @@ function addPostsWithUniqueId(currentposts, addposts){
     return r
 }
 function search(searchterm){
+    // search for searchterm
     const posts = getAllPosts()
     let returnPosts = []
     if (searchterm.startsWith('#')){
+        // return posts that contain hashtag (substr)
         returnPosts= returnPosts.concat(searchAllPosts('hashtags',searchterm.slice(1), posts))
     }else if (searchterm.startsWith('@')){
+        // return posts that contain mentioned people (substr)
         returnPosts=returnPosts.concat(searchAllPosts('mentions',searchterm.slice(1), posts))
         for (const key of Object.keys(postsPerUser)) {
             if (key.includes(searchterm.slice(1))){
@@ -151,6 +155,7 @@ function search(searchterm){
             }
           }
     }else{
+        // if neither # or @ present, still search for hashtags and mentions
         returnPosts=returnPosts.concat(searchAllPosts('hashtags',searchterm, posts))
         returnPosts=addPostsWithUniqueId(returnPosts, returnPosts.concat(searchAllPosts('mentions',searchterm, posts)))
         for (const key of Object.keys(postsPerUser)) {
@@ -164,13 +169,7 @@ function search(searchterm){
 
 
 
-/* let birdposts = 
-[
-    { username: "1", content: "Simon Ludwig" },
-    { username: "username1", content: "Simon Ludwig" },
-    { username: "username2", content: "Simon Ludwig" }
 
-] */
 let postsPerUser = {
     'SpaceX':[
         { hashtags:['hashtag'], username: 'SpaceX', content: "Falcon 9 launches SpaceX’s sixth dedicated #hashtag smallsat rideshare mission – completing our 200th successful launch!", id: "vnufydfoiww", datetime:getDatetime() },
@@ -226,7 +225,7 @@ app.post("/api/userfollows", (req, res) => {
         userFollows[req.query.user] = []
     }
     userFollows[req.query.user].push(req.query.followuser)
-    res.send(200);
+    res.sendStatus(200);
 })
 // user, unfollowuser
 app.post("/api/userunfollows", (req, res) => {
@@ -234,9 +233,9 @@ app.post("/api/userunfollows", (req, res) => {
         // delete userFollows[req.query.user][req.query.followuser]
        
         userFollows[req.query.user] = userFollows[req.query.user].filter(x => x !== req.query.followuser);
-        res.send(200);
+        res.sendStatus(200);
     } catch (error) {
-        res.send(404).send(error);
+        res.sendStatus(404).sendStatus(error);
     }
 
     
@@ -252,7 +251,7 @@ app.post("/api/birdpost", (req, res) => {
     const mentions = extractMentions(req.query.content)
     postsPerUser[req.query.user].push({ username: req.query.user, content: req.query.content, id: req.query.uuid, datetime:getDatetime(), hashtags:hashtags, mentions:mentions}); //uuidv4()
     console.log(postsPerUser)
-    res.send(200);
+    res.sendStatus(200);
 })
 
 
@@ -261,7 +260,7 @@ app.post("/api/birdpost", (req, res) => {
 app.get('/api/getbirdpost/:emplId', (req, res) => {
     const matchingEmployees = postsPerUser.filter(a => a.username === req.params.emplId);
     if (matchingEmployees.length <= 0) {
-        res.send(404);
+        res.sendStatus(404);
     }
     res.json(matchingEmployees[0])
 }); */
@@ -271,7 +270,7 @@ app.get('/api/getUserPosts/:username', (req, res) => {
   /*   const matchingPosts = postsPerUser.filter(a => a.username === req.params.username); */
 
     if (!Object.keys(postsPerUser).includes(req.params.username)){
-        res.send(400);
+        res.sendStatus(400);
     }else{
         res.json(postsPerUser[req.params.username])
     }
@@ -326,12 +325,12 @@ app.get('/api/search/:searchterm', (req, res) => {
 app.get('/api/login', (req, res) => {
 
     if (!Object.keys(userPasswords).includes(req.query.username)) {
-        res.send(404).send('user not found') // user not found
+        res.sendStatus(404) // .sendStatus('user not found') // user not found
     } else if (userPasswords[req.query.username] != req.query.password) {
-        res.send(403).send('wrong password') // wrong password
+        res.sendStatus(403) // .sendStatus('wrong password') // wrong password
     } else {
         res.json({'w':'e'})
-        res.send(200).send('login success') // login success
+        res.sendStatus(200) // .sendStatus('login success') // login success
 
     }
 
@@ -342,13 +341,13 @@ app.get('/api/login', (req, res) => {
 app.get('/api/signup', (req, res) => {
 
     if (Object.keys(userPasswords).includes(req.query.username)) {
-        res.send(404).send('user does already exist'); // user does already exist
+        res.sendStatus(404) // .sendStatus('user does already exist'); // user does already exist
 
     } else {
         userPasswords[req.query.username] = req.query.password
         userFollows[req.query.username] = []
         postsPerUser[req.query.username] = []
-        res.send(200).send('signup success') // login success
+        res.sendStatus(200) // .sendStatus('signup success') // login success
     }
 
 });
@@ -358,7 +357,7 @@ app.get('/api/signup', (req, res) => {
 
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '/index.html'));
+    res.sendStatusFile(path.join(__dirname, '/index.html'));
 });
 
 module.exports = app;
