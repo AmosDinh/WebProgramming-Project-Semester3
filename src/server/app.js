@@ -27,18 +27,32 @@ function getDatetime(){
     return formattedDate
 }
 
-function chooseNRandom(arr, x){
-        const res = [];
-        for(let i = 0; i < x; ){
-           const random = Math.floor(Math.random() * arr.length);
-           if(res.indexOf(arr[random]) !== -1){
-              continue;
-           };
-           res.push(arr[random]);
-           i++;
-        };
-        return res;
-};
+// function chooseNRandom(arr, x){
+//         // choose N random
+//         const res = [];
+//         for(let i = 0; i < x; ){
+//            const random = Math.floor(Math.random() * arr.length);
+//            if(res.indexOf(arr[random]) !== -1){
+//               continue;
+//            };
+//            res.push(arr[random]);
+//            i++;
+//         };
+//         return res;
+// };
+
+function chooseNRandomWithoutReplacement(arr, n) {
+    let copy = [...arr];
+    let result = [];
+    if (n>arr.length){
+        return arr
+    }
+    while (n--) {
+      let index = Math.floor(Math.random() * copy.length);
+      result.push(copy.splice(index, 1)[0]);
+    }
+    return result;
+}
 
 
 function getAllPosts(){
@@ -270,7 +284,13 @@ app.get('/api/getUserPosts/:username', (req, res) => {
   /*   const matchingPosts = postsPerUser.filter(a => a.username === req.params.username); */
 
     if (!Object.keys(postsPerUser).includes(req.params.username)){
-        res.sendStatus(400);
+        if (Object.keys(userPasswords).includes(req.params.username)){
+            postsPerUser[req.params.username] = []
+            res.json(postsPerUser[req.params.username])
+        }else{
+            res.sendStatus(400);
+
+        }
     }else{
         res.json(postsPerUser[req.params.username])
     }
@@ -286,7 +306,8 @@ app.get('/api/getUserFeed/:username', (req, res) => {
     let allPosts = getAllPosts()
     if (!Object.keys(userFollows).includes(username) || userFollows[username].length == 0){
         // get random posts
-        r = chooseNRandom(allPosts, 10)
+        r = chooseNRandomWithoutReplacement(allPosts, 10)
+        // console.log(r)
         
     }else{ // get latest posts of people following
         r = getPostOfFollowing(username, 10)
@@ -347,6 +368,7 @@ app.get('/api/signup', (req, res) => {
         userPasswords[req.query.username] = req.query.password
         userFollows[req.query.username] = []
         postsPerUser[req.query.username] = []
+    
         res.sendStatus(200) // .sendStatus('signup success') // login success
     }
 
