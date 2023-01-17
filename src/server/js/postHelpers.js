@@ -7,10 +7,9 @@ function getAllPosts(postsPerUser){
             allPosts.push(value[i])
         }
       }
-    
     return allPosts
-
 }
+
 
 function getPostOfFollowing(username, numberPosts, postsPerUser, userFollows){
     let posts = []
@@ -23,27 +22,22 @@ function getPostOfFollowing(username, numberPosts, postsPerUser, userFollows){
         for (var j =0;j<userFollows[username].length;j++) {
             const userFollow = userFollows[username][j]
             if(!Object.keys(postsPerUser).includes(userFollow) || postsPerUser[userFollow].length <= k){
-       
                 continue
             }else{
                 noPostsLeft = false
                 posts.push(postsPerUser[userFollow][k])
                 i+=1
             }
-
-           
         }
         k+=1
         if (noPostsLeft){
             break
         }
-     
     }
 
-
     return posts
-    
 }
+
 
 module.exports ={
     getAllPosts,

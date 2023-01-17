@@ -15,15 +15,18 @@ function searchAllPosts(key, searchterm, allPosts){
         }
     }
     return returnPosts
-  
 }
+
+
 function addPostsWithUniqueId(currentposts, addposts){
     // removes duplicate posts, comparing both input lists
     let ids = []
     let r = []
+
     for (var i =0;i<currentposts.length;i++){
         ids.push(currentposts[i].uuid)
     }
+    
     for (var i =0;i<addposts.length;i++){
         if (!ids.includes(addposts[i].uuid)){
             r.push(addposts[i])
@@ -31,6 +34,8 @@ function addPostsWithUniqueId(currentposts, addposts){
     }
     return r
 }
+
+
 function search(searchterm, postsPerUser){
     // search for searchterm
     const posts = postHelpers.getAllPosts(postsPerUser)
@@ -58,6 +63,7 @@ function search(searchterm, postsPerUser){
     }
     return returnPosts
 }
+
 
 module.exports = {
     search

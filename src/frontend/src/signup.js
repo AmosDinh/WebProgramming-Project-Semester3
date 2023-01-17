@@ -1,11 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/signup.css';
-
 import React, { isValidElement } from 'react'
 
-
 import { useForm } from "react-hook-form";
-
 import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 
@@ -39,6 +36,7 @@ function Signup() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = signup
   let { username, userpassword } = useParams();
+
   return (
     <main class="form-signin w-100 m-auto">
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -56,15 +54,14 @@ function Signup() {
                 <input  {...register("password", { required: true })} type="password" class="form-control" id="floatingPassword" placeholder="Password" defaultValue={userpassword}/>
                 <label for="floatingPassword">Password</label>
                 <div class="col-sm-3">
-                
-      </div>
+                </div>
             </div>
 
-           {/*  <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="remember-me"/> Remember me
-                </label>
-            </div> */}
+            {/*  <div class="checkbox mb-3">
+                  <label>
+                      <input type="checkbox" value="remember-me"/> Remember me
+                  </label>
+              </div> */}
             <button class="w-100 btn btn-lg btn-primary" type="submit">Create</button>
             <p class="mt-5 mb-3 text-muted">© 2017–2022</p>
         </form>

@@ -15,12 +15,9 @@ import { useNavigate } from 'react-router-dom';
 
 function Profile() {
 
-
     function follow(data) {
         console.log( userFollowsBool)
-       
-
-      
+             
         document.getElementById('followBtn').classList.toggle('btn-light')
         document.getElementById('followBtn').classList.toggle('btn-secondary')
         let type = null
@@ -62,12 +59,10 @@ function Profile() {
     const { isLoading, data, error } = useFetch("http://localhost:8080/api/getUserPosts/"+profileusername);
     var userFollowsBool = useFetch("http://localhost:8080/api/getUserFollowing/"+username+"/"+profileusername);
  
-   
     if (isLoading) {
       return <div>Is loading!</div>
     }
 
-    
     function handleSearch(data) {
         navigate('/search/'+username+'/'+encodeURIComponent(data.searchterm));
     }
@@ -93,9 +88,7 @@ function Profile() {
                         <p class="card-text"></p>
                     </div>
                     <ul class="list-group list-group-flush">
-                    
                     </ul>
-                
                 </div>
 
                 <h3 class="text-start">{data.length} Post{ data.length==1? "":'s' }:</h3>
@@ -105,12 +98,10 @@ function Profile() {
                     postCard(data,username)
                 }
 
-
                 </div>
                 <Link to={'/post/' + username}>
                     <button id="post" type="button" class="btn btn-primary btn-lg"
                     >Posten</button>
-
                 </Link>
             </div>
         </main>

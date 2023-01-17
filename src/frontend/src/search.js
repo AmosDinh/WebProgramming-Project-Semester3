@@ -6,10 +6,7 @@ import postCard from './components/postcard';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 
-import {
-
-    Link
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 function Search() {
@@ -18,12 +15,12 @@ function Search() {
     const { register: registerSearch, handleSubmit: handleSubmitSearch, formState: { errors: errorsSearch } } = useForm();
     let { username, searchterm } = useParams();
 
-
     const { isLoading, data, error } = useFetch("http://localhost:8080/api/search/" + encodeURIComponent(searchterm));
 
     if (isLoading) {
         return <div>Is loading!</div>
     }
+
     function handleSearch(data) {
         navigate('/search/' + username + '/' + encodeURIComponent(data.searchterm));
     }
@@ -41,20 +38,18 @@ function Search() {
                     </form>
                 </div>
             </nav>
+
             <div id='Cardcontainer' class="container">
                 <h6>Results for {searchterm}</h6>
-
                 {postCard(data, username)}
                 {data.length == 0 ? <div>nothing found :(</div> : null}
                 <div>
-
-
                 </div>
             </div>
+
             <Link to={'/post/' + username}>
                 <button id="post" type="button" class="btn btn-primary btn-lg"
                 >Posten</button>
-
             </Link>
         </div>
     );

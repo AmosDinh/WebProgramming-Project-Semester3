@@ -7,10 +7,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-import {
-
-    Link
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import postCard from './components/postcard';
 
@@ -21,7 +18,6 @@ function Main() {
 
     let { isLoading, data, error } =  useFetch("http://localhost:8080/api/getUserFeed/" + username);
     
-
     if (isLoading) {
         return <div>Is loading!</div>
     }
@@ -43,19 +39,15 @@ function Main() {
                     </form>
                 </div>
             </nav>
+
             <div id='Cardcontainer' class="container">
-
-
                 <div>
-
                     {postCard(data, username)}
-
                 </div>
             </div>
-            <Link to={'/post/' + username}>
-                <button id="post" type="button" class="btn btn-primary btn-lg"
-                >Posten</button>
 
+            <Link to={'/post/' + username}>
+                <button id="post" type="button" class="btn btn-primary btn-lg">Posten</button>
             </Link>
         </div>
     );
