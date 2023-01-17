@@ -1,9 +1,9 @@
 //helper functions
-function sortByDate(array){
-    return array.sort((a,b) => Date.parse(b.datetime) - Date.parse(a.datetime))
+function sortByDate(array) {
+    return array.sort((a, b) => Date.parse(b.datetime) - Date.parse(a.datetime))
 }
 
-function getDatetime(){
+function getDatetime() {
     const today = new Date();
 
     const year = today.getFullYear();
@@ -20,18 +20,18 @@ function getDatetime(){
 function chooseNRandomWithoutReplacement(arr, n) {
     let copy = [...arr];
     let result = [];
-    if (n>arr.length){
+    if (n > arr.length) {
         return arr
     }
     while (n--) {
-      let index = Math.floor(Math.random() * copy.length);
-      result.push(copy.splice(index, 1)[0]);
+        let index = Math.floor(Math.random() * copy.length);
+        result.push(copy.splice(index, 1)[0]);
     }
     return result;
 }
 
 
 
-module.exports ={
-    chooseNRandomWithoutReplacement,sortByDate, getDatetime
+module.exports = {
+    chooseNRandomWithoutReplacement, sortByDate, getDatetime
 }

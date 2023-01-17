@@ -11,6 +11,7 @@ app.use(function (req, res, next) {
     next();
 });
 
+
 // helpers
 const helpers = require('./js/helpers.js')
 
@@ -40,29 +41,32 @@ app.post("/api/userfollows", (req, res) => {
     userFollows[req.query.user].push(req.query.followuser)
     res.sendStatus(200);
 })
+
+
 // user, unfollowuser
 app.post("/api/userunfollows", (req, res) => {
     try {
         // delete userFollows[req.query.user][req.query.followuser]
-       
+
         userFollows[req.query.user] = userFollows[req.query.user].filter(x => x !== req.query.followuser);
         res.sendStatus(200);
     } catch (error) {
         res.sendStatus(404).sendStatus(error);
     }
 
-    
+
 })
+
 
 // POST a POST
 // user, content
 app.post("/api/birdpost", (req, res) => {
-    if (!Object.keys(postsPerUser).includes(req.query.user)){
+    if (!Object.keys(postsPerUser).includes(req.query.user)) {
         postsPerUser[req.query.user] = []
     }
     const hashtags = postExtractors.extractHashtags(req.query.content)
     const mentions = postExtractors.extractMentions(req.query.content)
-    postsPerUser[req.query.user].push({ username: req.query.user, content: req.query.content, id: req.query.uuid, datetime:helpers.getDatetime(), hashtags:hashtags, mentions:mentions}); //uuidv4()
+    postsPerUser[req.query.user].push({ username: req.query.user, content: req.query.content, id: req.query.uuid, datetime: helpers.getDatetime(), hashtags: hashtags, mentions: mentions }); //uuidv4()
     console.log(postsPerUser)
     res.sendStatus(200);
 })
@@ -79,41 +83,43 @@ app.get('/api/getbirdpost/:emplId', (req, res) => {
 }); */
 
 // GET POSTS
-app.get('/api/getUserPosts/:username', (req, res) => {
-  /*   const matchingPosts = postsPerUser.filter(a => a.username === req.params.username); */
 
-    if (!Object.keys(postsPerUser).includes(req.params.username)){
-        if (Object.keys(userPasswords).includes(req.params.username)){
+
+app.get('/api/getUserPosts/:username', (req, res) => {
+    /*   const matchingPosts = postsPerUser.filter(a => a.username === req.params.username); */
+
+    if (!Object.keys(postsPerUser).includes(req.params.username)) {
+        if (Object.keys(userPasswords).includes(req.params.username)) {
             postsPerUser[req.params.username] = []
             res.json(postsPerUser[req.params.username])
-        }else{
+        } else {
             res.sendStatus(400);
 
         }
-    }else{
+    } else {
         res.json(helpers.sortByDate(postsPerUser[req.params.username]))
     }
-
- 
-   
 });
+
 
 app.get('/api/getUserFeed/:username', (req, res) => {
 
     const username = req.params.username
     let r = null
     let allPosts = postHelpers.getAllPosts(postsPerUser)
-    if (!Object.keys(userFollows).includes(username) || userFollows[username].length == 0){
+    if (!Object.keys(userFollows).includes(username) || userFollows[username].length == 0) {
         // get random posts
         r = helpers.chooseNRandomWithoutReplacement(allPosts, 10)
         // console.log(r)
-        
-    }else{ // get latest posts of people following
+
+    } else { // get latest posts of people following
         r = helpers.sortByDate(postHelpers.getPostOfFollowing(username, 10, postsPerUser, userFollows))
     }
-   
+
     res.json(helpers.sortByDate(r))
 });
+
+
 // check if user follows
 app.get('/api/getUserFollowing/:username/:followuser', (req, res) => {
 
@@ -123,13 +129,14 @@ app.get('/api/getUserFollowing/:username/:followuser', (req, res) => {
     // console.log(userFollows[username],userFollows[username].includes(followuser),followuser)
     if (!Object.keys(userFollows).includes(username)) {
         res.json(false)
-    }else if(!userFollows[username].includes(followuser)){
+    } else if (!userFollows[username].includes(followuser)) {
         res.json(false)
-    }else{
+    } else {
         res.json(true)
     }
-   
+
 });
+
 
 app.get('/api/search/:searchterm', (req, res) => {
 
@@ -137,8 +144,6 @@ app.get('/api/search/:searchterm', (req, res) => {
     let searchResults = search.search(searchterm, postsPerUser)
     res.json(helpers.sortByDate(searchResults))
 });
-
-
 
 
 // LOGIN
@@ -150,12 +155,13 @@ app.get('/api/login', (req, res) => {
     } else if (userPasswords[req.query.username] != req.query.password) {
         res.sendStatus(403) // .sendStatus('wrong password') // wrong password
     } else {
-        res.json({'w':'e'})
+        res.json({ 'w': 'e' })
         res.sendStatus(200) // .sendStatus('login success') // login success
 
     }
 
 });
+
 
 // SIGNUP
 // username password
@@ -168,18 +174,16 @@ app.get('/api/signup', (req, res) => {
         userPasswords[req.query.username] = req.query.password
         userFollows[req.query.username] = []
         postsPerUser[req.query.username] = []
-    
+
         res.sendStatus(200) // .sendStatus('signup success') // login success
     }
 
 });
 
 
-
-
-
 app.get('/', (req, res) => {
     res.sendStatusFile(path.join(__dirname, '/index.html'));
 });
+
 
 module.exports = app;

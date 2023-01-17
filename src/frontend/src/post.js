@@ -12,8 +12,8 @@ import { useNavigate } from "react-router-dom";
 function Post() {
 
   function birdPost(data) {
-   
-    fetch("http://localhost:8080/api/birdpost?user="+username+"&content=" + encodeURIComponent(data.post)+"&uuid="+uuidv4(),
+
+    fetch("http://localhost:8080/api/birdpost?user=" + username + "&content=" + encodeURIComponent(data.post) + "&uuid=" + uuidv4(),
       {
         headers: {
           'Accept': 'application/json',
@@ -35,9 +35,9 @@ function Post() {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <button id='ZurueckBtn' type="button" class="btn btn-primary" onClick={() => navigate(-1)}>
-        <FontAwesomeIcon icon={faArrowLeft} />
+          <FontAwesomeIcon icon={faArrowLeft} />
         </button>
-     
+
         <div class="form-floating">
           <textarea
             {...register("post", { required: true })}
@@ -47,9 +47,9 @@ function Post() {
           </textarea>
           <label for="floatingTextarea2">Poste etwas</label>
         </div>
-      
+
         <button id='PostBtn' class="btn btn-primary" type="submit">Posten</button>
-      
+
       </form>
     </main >
   );

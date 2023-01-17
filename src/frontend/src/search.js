@@ -26,32 +26,34 @@ function Search() {
     }
 
     return (
-        <div class="container">
+        <main id='SearchMain'>
+            <div class="container">
 
-            <nav class="navbar bg-body-tertiary">
-                <div class="container-fluid">
-                    <Link class="navbar-brand" to={"/" + username}>Feed</Link>
-                    <Link class="navbar-brand" to={"/profile/" + username + "/" + username}>Profile</Link>
-                    <form class="d-flex" role="search">
-                        <input {...registerSearch("searchterm", { required: true })} class="form-control me-2" type="text" placeholder="Search" aria-label="Search" />
-                        <button class="btn btn-outline-success" onClick={handleSubmitSearch(handleSearch)}>Search</button>
-                    </form>
-                </div>
-            </nav>
+                <nav class="navbar bg-body-tertiary">
+                    <div class="container-fluid">
+                        <Link class="navbar-brand" to={"/" + username}>Feed</Link>
+                        <Link class="navbar-brand" to={"/profile/" + username + "/" + username}>Profile</Link>
+                        <form class="d-flex" role="search">
+                            <input {...registerSearch("searchterm", { required: true })} class="form-control me-2" type="text" placeholder="Search" aria-label="Search" />
+                            <button class="btn btn-outline-success" onClick={handleSubmitSearch(handleSearch)}>Search</button>
+                        </form>
+                    </div>
+                </nav>
 
-            <div id='Cardcontainer' class="container">
-                <h6>Results for {searchterm}</h6>
-                {postCard(data, username)}
-                {data.length == 0 ? <div>nothing found :(</div> : null}
-                <div>
+                <div id='Cardcontainer' class="container">
+                    <h6>Results for {searchterm}</h6>
+                    {postCard(data, username)}
+                    {data.length == 0 ? <div>nothing found :(</div> : null}
+                    <div>
+                    </div>
                 </div>
+
+                <Link to={'/post/' + username}>
+                    <button id="post" type="button" class="btn btn-primary btn-lg"
+                    >Posten</button>
+                </Link>
             </div>
-
-            <Link to={'/post/' + username}>
-                <button id="post" type="button" class="btn btn-primary btn-lg"
-                >Posten</button>
-            </Link>
-        </div>
+        </main>
     );
 }
 

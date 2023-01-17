@@ -33,7 +33,7 @@
         document.body.insertBefore(newDiv, currentDiv);
     }
     document.getElementById("create").addEventListener('click', () => {
-        fetch("/api/birdpost/?username=" + prompt("Name eingeben")+"&content="+prompt('Content eingeben'),
+        fetch("/api/birdpost/?username=" + prompt("Name eingeben") + "&content=" + prompt('Content eingeben'),
             {
                 headers: {
                     'Accept': 'application/json',

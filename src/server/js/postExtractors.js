@@ -1,22 +1,22 @@
 // handle extracting hashtags or mentions of posts
 
 function extractHashtags(text) {
-    const hashtags = [];
-    const words = text.split(' ');
-    for (let i = 0; i < words.length; i++) {
-      if (words[i].startsWith('#')) {
-        hashtags.push(words[i].slice(1,words[i].length));
-      }
+  const hashtags = [];
+  const words = text.split(' ');
+  for (let i = 0; i < words.length; i++) {
+    if (words[i].startsWith('#')) {
+      hashtags.push(words[i].slice(1, words[i].length));
     }
-    return hashtags;
   }
+  return hashtags;
+}
 
 function extractMentions(text) {
   const hashtags = [];
   const words = text.split(' ');
   for (let i = 0; i < words.length; i++) {
     if (words[i].startsWith('@')) {
-      hashtags.push(words[i].slice(1,words[i].length));
+      hashtags.push(words[i].slice(1, words[i].length));
     }
   }
   return hashtags;
